@@ -32,5 +32,6 @@ public class ClickToStart : MonoBehaviour {
 			cgroup.alpha = Mathf.Lerp(alpha,0f,t);
 			yield return null;
 		}
+		Destroy (menuPane);
 	}
 }
