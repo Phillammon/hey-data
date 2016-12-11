@@ -12,6 +12,7 @@ public class ReadSheet : MonoBehaviour {
 	private Color32 memoColour;
 	private Color32 fileColour;
 	private Vector3 startPoint;
+	private Vector3 highlightPoint;
 	private Vector3 raisedPoint;
 	private IEnumerator runningSlide;
 	private bool raised;
@@ -21,6 +22,7 @@ public class ReadSheet : MonoBehaviour {
 		fileColour = new Color32 (255,255,255,255);
 		raised = false;
 		startPoint = gameObject.transform.localPosition;
+		highlightPoint = new Vector3 (startPoint.x, startPoint.y + 50);
 		raisedPoint = new Vector3 (startPoint.x, startPoint.y + 400);
 	}
 	
@@ -50,7 +52,9 @@ public class ReadSheet : MonoBehaviour {
 
 	public void HandleClick(){
 		raised = !raised;
-		audsrc.Play ();
+		if (!audsrc.isPlaying) {
+			audsrc.Play ();
+		}
 		if (runningSlide != null) {
 			StopCoroutine (runningSlide);
 		}
@@ -59,6 +63,31 @@ public class ReadSheet : MonoBehaviour {
 		} else {
 			runningSlide = scrollTowards(startPoint);
 		}
+		StartCoroutine(runningSlide);
+	}
+
+	public void MouseLeave(){
+		raised = false;
+		if (!audsrc.isPlaying) {
+			audsrc.Play ();
+		}
+		if (runningSlide != null) {
+			StopCoroutine (runningSlide);
+		}
+		runningSlide = scrollTowards(startPoint);
+		StartCoroutine(runningSlide);
+	}
+
+
+	public void MouseEnter(){
+		raised = false;
+		if (!audsrc.isPlaying) {
+			audsrc.Play ();
+		}
+		if (runningSlide != null) {
+			StopCoroutine (runningSlide);
+		}
+		runningSlide = scrollTowards(highlightPoint);
 		StartCoroutine(runningSlide);
 	}
 
