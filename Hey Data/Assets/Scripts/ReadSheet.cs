@@ -35,6 +35,7 @@ public class ReadSheet : MonoBehaviour {
 			} else {
 				fill.color = fileColour;
 			}
+			readableText.text = activeSheet.text.Replace("\\n", "\n");
 			gameObject.GetComponent<Image> ().enabled = true;
 			readableText.enabled = true;
 			fill.enabled = true;

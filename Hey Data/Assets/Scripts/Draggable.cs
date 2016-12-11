@@ -16,6 +16,7 @@ public class Draggable : MonoBehaviour
 	public Transform workingArea;
 	public bool isMemo;
 	public List<CabinetBehaviour> cabinets;
+	public string text;
 
 	public void Grab()
 	{
