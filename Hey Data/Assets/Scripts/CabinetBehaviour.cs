@@ -30,7 +30,7 @@ public class CabinetBehaviour : MonoBehaviour {
 			btn.transform.SetParent(openCabinet, true);
 			btn.transform.localPosition = new Vector3 (startpos.x, startpos.y - (10 * (1 + containedFiles.Count)), startpos.z);
 			for (int i = 0; i < containedFiles.Count; i++) {
-				containedFiles[i].transform.localPosition = new Vector3 (startpos.x, startpos.y - (10 * i) -35, startpos.z);
+				containedFiles[i].transform.localPosition = new Vector3 (startpos.x, startpos.y - (10 * i) -45, startpos.z);
 				
 			}
 		} else if (ajar && !lockout) {
@@ -96,15 +96,27 @@ public class CabinetBehaviour : MonoBehaviour {
 		lockout = false;
 	}
 
-	public void addItem(GameObject file){
-		if (open && (btn.transform.localPosition.y - 40 < file.transform.localPosition.y) && (startpos.y + 40 > file.transform.localPosition.y)) {
+	public bool addItem(GameObject file){
+		if (open && (btn.transform.localPosition.y < file.transform.localPosition.y) && (startpos.y + 40 > file.transform.localPosition.y)) {
 			if ((btn.transform.parent.transform.localPosition.x - 40 < file.transform.localPosition.x) && (btn.transform.parent.transform.localPosition.x + 40 > file.transform.localPosition.x)) {
-				containedFiles.Add (file);
 				file.transform.SetParent (btn.transform.parent);
-				file.transform.SetAsLastSibling ();
+				file.transform.SetAsFirstSibling ();
+				for (int i = 0; i < containedFiles.Count; i++) {
+					if (file.transform.localPosition.y > startpos.y + 30 - (10 * i)) {
+						containedFiles.Insert (i, file);
+						file.transform.SetSiblingIndex (i);
+						break;
+					}
+				}
+				if (!containedFiles.Contains (file)) {
+					containedFiles.Add (file);
+					file.transform.SetSiblingIndex (containedFiles.Count);
+				}
 				btn.transform.SetAsLastSibling ();
 				file.GetComponent<Draggable> ().cabinet = this;
+				return true;
 			}
 		}
+		return false;
 	}
 }

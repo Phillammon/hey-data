@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 
 [RequireComponent(typeof(MeshCollider))]
@@ -17,9 +18,29 @@ public class Draggable : MonoBehaviour
 	public bool isMemo;
 	public List<CabinetBehaviour> cabinets;
 	public string text;
+	public Sprite memoSprite;
+	public bool spawner;
+
+	public void Start(){
+		if (isMemo) {
+			gameObject.transform.GetComponentInChildren<Image> ().sprite = memoSprite;
+		}
+		for (int i = 0; i < cabinets.Count; i++) {
+			if (cabinets [i].containedFiles.Contains(gameObject)) {
+				cabinet = cabinets [i];
+				break;
+			}
+		}
+	}
 
 	public void Grab()
 	{
+		if (spawner) {
+			GameObject newspwn = Instantiate (gameObject, gameObject.transform.parent);
+			newspwn.transform.SetAsFirstSibling ();
+			Destroy(newspwn.transform.FindChild("Highlight").gameObject);
+			spawner = false;
+		}
 		gameObject.transform.SetParent (workingArea);
 		currpoint = Camera.main.WorldToScreenPoint(gameObject.transform.position);
 		if (cabinet != null) {
@@ -40,7 +61,9 @@ public class Draggable : MonoBehaviour
 	public void Drop(){
 		audsrc.Play ();
 		for (int i = 0; i < cabinets.Count; i++) {
-			cabinets [i].addItem (gameObject);
+			if (cabinets [i].addItem (gameObject)) {
+				break;
+			}
 		}
 	}
 
