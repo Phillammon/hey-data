@@ -52,7 +52,7 @@ public class DayNightCycle : MonoBehaviour {
 		if (quarter == 3) {
 			sky.color = Color32.Lerp (midnight, dawn, ((float) counter) / 32f);
 		}
-		yield return new WaitForSeconds (10f);
+		yield return new WaitForSeconds (2f);
 		StartCoroutine (cycleColours());
 
 	}

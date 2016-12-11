@@ -49,9 +49,10 @@
      <Compile Include="Assets\Scripts\CabinetBehaviour.cs" />
      <Compile Include="Assets\Scripts\ClickToStart.cs" />
      <Compile Include="Assets\Scripts\DayNightCycle.cs" />
-     <Compile Include="Assets\Scripts\DraggableSheet.cs" />
+     <Compile Include="Assets\Scripts\Draggable.cs" />
      <Compile Include="Assets\Scripts\FileData.cs" />
      <Compile Include="Assets\Scripts\MuteToggle.cs" />
+     <Compile Include="Assets\Scripts\ReadSheet.cs" />
      <Compile Include="Assets\Scripts\SoundRandomSilenceLoop.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>D:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

@@ -21,7 +21,7 @@ public class MuteToggle : MonoBehaviour {
 
 	public void ToggleSound(){
 		muted = !muted;
-		AudioListener.pause = muted;
+		AudioListener.volume = 1f - AudioListener.volume;
 		if (muted) {
 			button.image.sprite = mutesprite; 
 		}
